@@ -14,18 +14,22 @@ class QuadEquationSolver extends LinearEquationSolver implements EquationInterfa
 
     public function solve($a, $b, $c)
     {
-        if ($a == 0) {
-            return $this->solveLinearEquation($a, $b);
+        if ($a == 0 && $b == 0 && $c == 0) {
+            throw new PenkinException("Equation does not exist.\n\r");
         }
 
+        if ($a == 0) {
+            return $this->solveLinearEquation($b, $c);
+        }
+        MyLog::log("It is a quad equation.\n\r");
         $d = $this->discriminant($a, $b, $c);
 
         if ($d == 0) {
-            return $this->x = [(-$b) / (2 * $a)];
+            return $this->x = [(-$b)/ (2 * $a)];
         }
 
         if ($d < 0) {
-            throw new \Error("Equation does not exist");
+            throw new PenkinException("Equation does not exist\n\r");
         }
 
         return $this->x = [((-$b) + sqrt($d)) / (2 * $a), ((-$b) - sqrt($d)) / (2 * $a)];
