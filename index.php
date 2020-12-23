@@ -1,43 +1,27 @@
 <?php
 
-class A
-{
-    protected $x;
+ini_set("display_errors", 1);
+error_reporting (-1); 
 
-    public function solveLinearEquation($a, $b)
-    {
-        if ($a == 0) {
-            throw new Error("Variable a cannot be empty\n\r");
-        }
+require "core/EquationInterface.php";
+require "core/LogAbstract.php";
+require "core/LogInterface.php";
 
-        return $this->x = [($b * -1) / $a];
-    }
-}
+require "penkin/MyLog.php";
+require "penkin/LinearEquationSolver.php";
+require "penkin/QuadEquationSolver.php";
 
-class B extends A
-{
-    # Function for finding discriminant
-    protected function discriminant($a, $b, $c)
-    {
-        return ($b * $b) - (4 * $a * $c);
-    }
+$solver = new penkin\QuadEquationSolver();
+$logger = penkin\MyLog::Instance();
 
-    public function solveQuadEquation($a, $b, $c)
-    {
-        if ($a == 0) {
-            return $this->solveLinearEquation($b, $c);
-        }
+try {
+    $result = $solver->solve(2, 4, 1);
+    
+    $str = implode(" ", $result);
 
-        $d = $this->discriminant($a, $b, $c);
+    $logger::log($str);
+} catch(Error $err) {
+    $message = $err->getMessage();
 
-        if ($d == 0) {
-            return $this->x = [(-$b) / (2 * $a)];
-        }
-
-        if ($d < 0) {
-            throw new \Error("Equation does not exist");
-        }
-
-        return $this->x = [((-$b) + sqrt($d)) / (2 * $a), ((-$b) - sqrt($d)) / (2 * $a)];
-    }
+    $logger::log($message);
 }
