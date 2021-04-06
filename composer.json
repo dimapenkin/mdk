@@ -1,0 +1,18 @@
+{
+  "name": "dimapenkin/mdk",
+  "type": "project",
+  "license": "MIT",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "https://github.com/dimapenkin/mdk-lib.git"
+    },
+    {
+      "type": "git",
+      "url": "https://github.com/rok9ru/trpo-core.git"
+    }
+  ],
+  "require": {
+    "dimapenkin/mdk-lib": "^1.0"
+  }
+}

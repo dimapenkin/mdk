@@ -1,3 +1,4 @@
-core/
 log/
 version
+vendor/
+composer.phar
